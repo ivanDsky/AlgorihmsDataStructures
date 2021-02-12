@@ -1,0 +1,68 @@
+package homework.hw5;
+
+public class Parallelepiped {
+    private double height;
+    private double area;
+    private double volume;
+
+    private Vector3 a,b,c;
+    private Point A;
+
+    public Parallelepiped(Point N){
+        A = new Point(0,0,0);
+        a = new Vector3(N.x,0,0);
+        b = new Vector3(0,N.y,0);
+        c = new Vector3(0,0,N.z);
+        area = N.x * N.y;
+        height = N.z;
+    }
+
+    public Parallelepiped(Point A,Point B,Point C,double AA1,double alpha){
+        a = new Vector3(A,B);
+        b = new Vector3(A,C);
+        area = Vector3.area(a,b);
+        height = AA1 * Math.sin((alpha * Math.PI) / 180.0);
+    }
+
+    public Parallelepiped(Point A,double AB,double AD,double theta,double AA1,double alpha){
+        area = AB * AD * Math.sin((theta * Math.PI) / 180.0);
+        height = AA1 * Math.sin((alpha * Math.PI) / 180.0);
+    }
+
+    public Parallelepiped(Point A,Vector3 a,Vector3 b,Vector3 c){
+        this.A = A;
+        this.a = a;
+        this.b = b;
+        this.c = c;
+        area = Vector3.area(a,b);
+        height = area == 0 ? 0 : Vector3.volume(a,b,c) / area;
+    }
+
+    public Parallelepiped(Point A,Point B,Point C,Point A1){
+        this.A = A;
+        a = new Vector3(A,B);
+        b = new Vector3(A,C);
+        c = new Vector3(A,A1);
+        area = Vector3.area(a,b);
+        height = area == 0 ? 0 : Vector3.volume(a,b,c) / area;
+    }
+
+    public double getVolume(){
+        volume = getArea() * getHeight();
+        return volume;
+    }
+
+    public double getArea(){
+        return area;
+    }
+
+    public double getHeight(){
+        return height;
+    }
+
+    @Override
+    public String toString() {
+        return "Parallelepiped have area : " + getArea() + ", height : " + getHeight() + ", volume : " + getVolume() +
+                ((c != null) ? (", can be represented by 3 vectors : " + a + ", " + b + ", " + c) : "");
+    }
+}

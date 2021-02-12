@@ -129,7 +129,7 @@ public class Rectangle {
     public Rectangle intersection(Rectangle rect){
         double rx1 = Math.max(x1,rect.x1),ry1 = Math.max(y1,rect.y1),
                 rx2 = Math.min(x2,rect.x2),ry2 = Math.min(y2,rect.y2);
-        if(rx1 > rx2 || ry1 > ry2)return new Rectangle();
+        if(rx1 > rx2 || ry1 > ry2)return null;
         return new Rectangle(rx1,ry1,rx2,ry2);
     }
 
