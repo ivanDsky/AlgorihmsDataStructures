@@ -2,6 +2,7 @@ package homework.hw5;
 
 import utils.DataInput;
 import utils.Util;
+import utils.geometry.Vector3D;
 
 public class Tester {
     public static void main(String[] args) {
@@ -52,11 +53,11 @@ public class Tester {
 
             if(type == 4){
                 Point A;
-                Vector3 a, b, c;
+                Vector3D a, b, c;
                 A = Point.readPoint("Enter point A");
-                a = Vector3.readVector("Enter vector a");
-                b = Vector3.readVector("Enter vector b");
-                c = Vector3.readVector("Enter vector c");
+                a = Vector3D.readVector("Enter vector a");
+                b = Vector3D.readVector("Enter vector b");
+                c = Vector3D.readVector("Enter vector c");
                 System.out.println(new Parallelepiped(A,a,b,c));
             }
 
