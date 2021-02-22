@@ -28,8 +28,8 @@ public class Quadrangle extends Figure{
 
     @Override
     public double getArea() {
-        return Vector.area(new Vector(A,C), new Vector(B,D));
-        //return (new Triangle(A,B,C).getArea()) + (new Triangle(C,D,A).getArea());
+        //return Vector.area(new Vector(A,C), new Vector(B,D));
+        return (new Triangle(A,B,C).getArea()) + (new Triangle(C,D,A).getArea());
     }
 
     @Override
