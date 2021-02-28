@@ -44,6 +44,19 @@ public final class DataInput {
         return value;
     }
 
+    public static Integer getIntInRange(String wr,int l,int r){
+        int x = 0;
+        while(true){
+            x = DataInput.getInt(wr);
+            if(x < l || x > r){
+                System.out.println("Integer can be only in [" + l + ".." + r + "]");
+                continue;
+            }
+            break;
+        }
+        return x;
+    }
+
     public static Double getDouble(String wr){
         writeText(wr);
         Double value;

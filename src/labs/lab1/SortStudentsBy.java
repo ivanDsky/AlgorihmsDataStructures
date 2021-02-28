@@ -1,0 +1,11 @@
+package labs.lab1;
+
+public enum SortStudentsBy {
+    DEFAULT,
+    BY_COURSE,
+    IN_FACULTY_BY_NAME,
+    IN_DEPARTMENT_BY_COURSE,
+    IN_DEPARTMENT_BY_NAME,
+    IN_DEPARTMENT_WITH_COURSE,
+    IN_DEPARTMENT_WITH_COURSE_BY_NAME,
+}
