@@ -30,14 +30,60 @@ public class Tester {
         Mohyla.addFaculty(fi);
         Faculty fsnst = new Faculty("FSNST");
         Mohyla.addFaculty(fsnst);
+        Faculty fen = new Faculty("FEN");
+        Mohyla.addFaculty(fen);
+
         Department ipz = new Department("IPZ",fi);
         fi.addDepartment(ipz);
         Department pm = new Department("PM",fi);
         fi.addDepartment(pm);
-        Mohyla.addStudent(new Student("IPZ 1",ipz,1,1),ipz);
-        Mohyla.addStudent(new Student("IPZ 2",ipz,2,2),ipz);
-        Mohyla.addStudent(new Student("PM 1",pm,1,1),pm);
-        Mohyla.addStudent(new Student("PM 2",pm,2,2),pm);
+
+        Department sociology = new Department("Sociology",fsnst);
+        fsnst.addDepartment(sociology);
+        Department PS = new Department("Political science",fsnst);
+        fsnst.addDepartment(PS);
+        Department psychology = new Department("Psychology",fsnst);
+        fsnst.addDepartment(psychology);
+
+        Department finance = new Department("Finance",fen);
+        fen.addDepartment(finance);
+        Department marketing = new Department("Marketing",fen);
+        fen.addDepartment(marketing);
+
+        Mohyla.addStudent(new Student("Буряк Олеся Володимирівна",PS,1,2),PS);
+        Mohyla.addStudent(new Student("Кітик Анастасія Ігорівна",PS,1,1),PS);
+        Mohyla.addStudent(new Student("Устинова Ольга Олександрівна",PS,2,4),PS);
+        Mohyla.addStudent(new Student("Кобилецький Маркіян-Іван Миколайович",PS,4,6),PS);
+
+        Mohyla.addStudent(new Student("Ткач Алєся Арсеніївна",psychology,3,4),psychology);
+        Mohyla.addStudent(new Student("Зарицька Євгенія Семенівна",psychology,4,1),psychology);
+        Mohyla.addStudent(new Student("Денисенко Валерія Геннадіївна",psychology,1,5),psychology);
+        Mohyla.addStudent(new Student("Данченко Софія Богданівна",psychology,4,4),psychology);
+
+        Mohyla.addStudent(new Student("Трегуб Софія Володимирівна",sociology,6,3),sociology);
+        Mohyla.addStudent(new Student("Жураховська Олена Станіславівна",sociology,2,6),sociology);
+        Mohyla.addStudent(new Student("Гончаренко Анна Олександрівна",sociology,1,2),sociology);
+        Mohyla.addStudent(new Student("Камінська Руслана Володимирівна",sociology,3,4),sociology);
+
+        Mohyla.addStudent(new Student("Гангало Богдан Сергійович",finance,1,1),finance);
+        Mohyla.addStudent(new Student("Лавріненко Юлія Олегівна",finance,2,1),finance);
+        Mohyla.addStudent(new Student("Москаленко Ольга Олександрівна",finance,4,6),finance);
+        Mohyla.addStudent(new Student("Данович Олександра Олегівна",finance,4,2),finance);
+
+        Mohyla.addStudent(new Student("Денисюк Іоанна Михайлівна",marketing,4,3),marketing);
+        Mohyla.addStudent(new Student("Торяник Марія Михайлівна",marketing,3,5),marketing);
+        Mohyla.addStudent(new Student("Лепський Максим Сергійович",marketing,3,2),marketing);
+        Mohyla.addStudent(new Student("Письменна Марія Олександрівна",marketing,1,2),marketing);
+
+        Mohyla.addStudent(new Student("Вербівська Юлія Віталіївна",pm,2,4),pm);
+        Mohyla.addStudent(new Student("Колодяжна Дарія Олександрівна",pm,3,6),pm);
+        Mohyla.addStudent(new Student("Гурський Богдан Русланович",pm,3,2),pm);
+        Mohyla.addStudent(new Student("Дойничко Арсен Ігорович",pm,1,2),pm);
+
+        Mohyla.addStudent(new Student("Мельник Ірина Валеріївна",ipz,1,3),ipz);
+        Mohyla.addStudent(new Student("Санченко Георгій Олександрович",ipz,1,5),ipz);
+        Mohyla.addStudent(new Student("Шевченко Дар'я Валеріївна",ipz,3,2),ipz);
+        Mohyla.addStudent(new Student("Жорник Дмитро Олегович",ipz,1,2),ipz);
     }
 
     private static void CREFaculty() {
