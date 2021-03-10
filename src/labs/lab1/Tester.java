@@ -92,7 +92,7 @@ public class Tester {
         Mohyla.addTeacher(new Teacher("Броваренко Володимир Анатолійович",finance),finance);
         Mohyla.addTeacher(new Teacher("Панасюк Станіслав Петрович",ipz),ipz);
         Mohyla.addTeacher(new Teacher("Кравченко Світлана Миколаївна",sociology),sociology);
-        Mohyla.addTeacher(new Teacher("Броварчук Ірина Олександрович",pm),pm);
+        Mohyla.addTeacher(new Teacher("Броварчук Ірина Олександрівна",pm),pm);
 
     }
 

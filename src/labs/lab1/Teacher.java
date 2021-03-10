@@ -23,6 +23,6 @@ public class Teacher extends UnivPerson{
 
     @Override
     public String toString() {
-        return "This is teacher " + getName() + ".";
+        return "This is teacher " + getName() + ". Department : " + getDepartment().getName() + ".";
     }
 }
