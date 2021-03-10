@@ -84,6 +84,16 @@ public class Tester {
         Mohyla.addStudent(new Student("Санченко Георгій Олександрович",ipz,1,5),ipz);
         Mohyla.addStudent(new Student("Шевченко Дар'я Валеріївна",ipz,3,2),ipz);
         Mohyla.addStudent(new Student("Жорник Дмитро Олегович",ipz,1,2),ipz);
+
+
+        Mohyla.addTeacher(new Teacher("Шевчук Марина Андріївна",finance),finance);
+        Mohyla.addTeacher(new Teacher("Захарчук Ярослав Миколайович",sociology),sociology);
+        Mohyla.addTeacher(new Teacher("Шевченко Наташа Борисовівна",pm),pm);
+        Mohyla.addTeacher(new Teacher("Броваренко Володимир Анатолійович",finance),finance);
+        Mohyla.addTeacher(new Teacher("Панасюк Станіслав Петрович",ipz),ipz);
+        Mohyla.addTeacher(new Teacher("Кравченко Світлана Миколаївна",sociology),sociology);
+        Mohyla.addTeacher(new Teacher("Броварчук Ірина Олександрович",pm),pm);
+
     }
 
     private static void CREFaculty() {
