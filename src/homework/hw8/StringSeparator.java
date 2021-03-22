@@ -48,7 +48,9 @@ public class StringSeparator {
             uniqueWords[i] = tmp[i];
             cnt[i] = tmpCnt[i] + 1;
         }
-        Arrays.sort(uniqueWords);
+        Arrays.sort(uniqueWords,(a,b) -> {
+            return a.toLowerCase().compareToIgnoreCase(b);
+        });
     }
 
     private void generateCnt(){
