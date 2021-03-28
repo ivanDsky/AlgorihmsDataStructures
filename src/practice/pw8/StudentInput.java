@@ -21,12 +21,12 @@ public class StudentInput {
         if (scanner.hasNextLine()) {
             address = scanner.nextLine();
         }
-
+        System.out.print("Enter average grade : ");
         while (scanner.hasNextDouble()) {
-            System.out.print("Enter average grade : ");
             grade = scanner.nextDouble();
             if(grade <= 100 && grade >= 0)break;
             System.out.println("Grade should be in range 0 to 100 inclusive");
+            System.out.print("Enter average grade : ");
         }
 
         return new Student(name,address,grade);
