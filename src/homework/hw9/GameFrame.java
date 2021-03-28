@@ -58,7 +58,7 @@ public class GameFrame extends JFrame {
 
     private void createProblem(int id) {
         Random rnd = new Random();
-        answers[id] = rnd.nextInt(maxValue);
+        answers[id] = rnd.nextInt(maxValue + 1);
         problems[id] = new ProblemComponent(generateProblemString(answers[id]));
         verticalPanel.add(problems[id]);
     }
@@ -105,7 +105,7 @@ public class GameFrame extends JFrame {
 
     private Pair<Integer, Integer> getPairSub(int sub) {
         Random rnd = new Random();
-        int fst = rnd.nextInt(100 - sub);
+        int fst = rnd.nextInt(maxValue - sub + 1);
         return new Pair<>(fst + sub,fst);
     }
 }
