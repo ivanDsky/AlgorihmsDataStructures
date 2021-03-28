@@ -51,7 +51,7 @@ public class GameFrame extends JFrame {
         add(verticalPanel);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500, 350);
+        setSize(500, (numOfProblems + 3) * 35);
         setVisible(true);
 
     }

@@ -22,7 +22,9 @@ public class StartFrame extends JFrame {
         maxValuePanel.add(maxValueLabel);
         maxValuePanel.add(maxValueSlider);
         maxValueSlider.setMajorTickSpacing(20);
+        maxValueSlider.setMinorTickSpacing(10);
         maxValueSlider.setPaintTicks(true);
+        maxValueSlider.setSnapToTicks(true);
         maxValueSlider.setPaintLabels(true);
 
         JPanel numberOfProblemsPanel = new JPanel(new FlowLayout());
