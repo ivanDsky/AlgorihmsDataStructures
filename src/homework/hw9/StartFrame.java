@@ -54,7 +54,7 @@ public class StartFrame extends JFrame {
         add(verticalPanel);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500, 300);
+        setSize(500, 250);
         setVisible(true);
         
     }
