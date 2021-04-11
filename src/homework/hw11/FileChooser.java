@@ -12,6 +12,7 @@ public class FileChooser{
     private File[] files;
     private ArrayList<StringSeparator> separators = new ArrayList<>();
     private StringSeparator allFilesSeparator;
+    private JFileChooser fileChooser = new JFileChooser("D:");
 
 
     private static final int MIN_AMOUNT_OF_FIlES = 10;
@@ -19,7 +20,11 @@ public class FileChooser{
     private static final String VOCABULARY_PATH = "src/homework/hw11/Vocabulary.txt";
 
 
-    FileChooser() { }
+    FileChooser() {
+        fileChooser.setPreferredSize(new Dimension(800,600));
+        fileChooser.setMultiSelectionEnabled(true);
+        fileChooser.getActionMap().get("viewTypeDetails").actionPerformed(null);
+    }
 
     public void readFiles() throws Exception{
         files = getFilesFromChooser();
@@ -91,9 +96,7 @@ public class FileChooser{
     }
 
     private File[] getFilesFromChooser() {
-        JFileChooser fileChooser = new JFileChooser("D:");
-        fileChooser.setPreferredSize(new Dimension(800,600));
-        fileChooser.setMultiSelectionEnabled(true);
+
         int ret = fileChooser.showOpenDialog(null);
         if (ret == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFiles();
