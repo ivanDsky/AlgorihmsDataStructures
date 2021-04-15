@@ -20,7 +20,7 @@ public class UpdateFrame extends JFrame {
     JComboBox<String> groupBox;
     JComboBox<String> productBox;
     JCheckBox addBox;
-    JLabel valueLabel;
+    JLabel valueLabel = new JLabel();
 
     private Group selectedGroup;
     private Product selectedProduct;
