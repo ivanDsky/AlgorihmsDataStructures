@@ -102,7 +102,8 @@ public class AddProductFrame {
                 }
                 double amount = 1;
                 if(!amountField.getText().isBlank()) amount = Double.parseDouble(amountField.getText());
-                Product nProduct = new Product(Util.removeEndSpaces(nameField.getText()),descriptionArea.getText(),
+                Product nProduct = new Product(Util.removeEndSpaces(nameField.getText()),
+                        descriptionArea.getText().isBlank() ? null : descriptionArea.getText(),
                         Util.removeEndSpaces(manufacturerField.getText()),
                         amount,Double.parseDouble(priceField.getText()));
                 Group group = Database.getInstance().getGroupByName((String)groupBox.getSelectedItem());
@@ -123,6 +124,23 @@ public class AddProductFrame {
         c.gridy = 7;
         mainPanel.add(submit,c);
 
+        if (product != null) {
+            JButton remove = new JButton("Remove");
+            remove.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    actualGroup.removeProduct(product);
+                    frame.refreshList();
+                    addProduct.dispose();
+                }
+            });
+
+            c.gridwidth = 2;
+            c.gridx = 0;
+            c.gridy = 8;
+            mainPanel.add(remove, c);
+        }
+
 
         addProduct.add(mainPanel);
         addProduct.setDefaultCloseOperation(addProduct.DISPOSE_ON_CLOSE);
@@ -137,6 +155,7 @@ public class AddProductFrame {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.NORTH;
         c.gridy = posY;
+        if(posY == 6)c.weighty = 1000;
         c.insets = new Insets(0,10,10,10);
 
         JLabel label = new JLabel(title);

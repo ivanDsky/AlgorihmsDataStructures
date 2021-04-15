@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 import static labs.lab2.Util.toPattern;
 
-public class MainFrame extends JFrame implements IOnRefreshList{
+public class MainFrame extends JFrame implements IOnRefreshList {
     JPanel mainPanel = new JPanel();
     JPanel buttonPanel = new JPanel();
     JPanel centerButtonPanel = new JPanel();
@@ -21,9 +21,9 @@ public class MainFrame extends JFrame implements IOnRefreshList{
     JTextField searchTextField;
     JScrollPane searchListPanel;
     private final MainFrame thisFrame;
+    //TODO only one open edit window
 
-
-    public MainFrame(){
+    public MainFrame() {
         thisFrame = this;
         setupDatabase();
         setupButtonPanel();
@@ -35,13 +35,13 @@ public class MainFrame extends JFrame implements IOnRefreshList{
         Database.getInstance().addGroup(new Group("Test"));
 
         Group prod = new Group("Prod");
-        prod.addProduct(new Product("Flour",15.0));
-        prod.addProduct(new Product("Oil",15.0));
-        prod.addProduct(new Product("Rice",150.0));
+        prod.addProduct(new Product("Flour", 15.0));
+        prod.addProduct(new Product("Oil", 15.0));
+        prod.addProduct(new Product("Rice", 150.0));
 
         Group unprod = new Group("Unprod");
-        unprod.addProduct(new Product("Soap",20.0));
-        unprod.addProduct(new Product("Napkin","Napkins for kitchen","Kyiv-Napkins",20,3));
+        unprod.addProduct(new Product("Soap", 20.0));
+        unprod.addProduct(new Product("Napkin", "Napkins for kitchen", "Kyiv-Napkins", 20, 3));
 
         Database.getInstance().addGroup(prod);
         Database.getInstance().addGroup(unprod);
@@ -52,21 +52,21 @@ public class MainFrame extends JFrame implements IOnRefreshList{
 
     private void setupMainPanel() {
         mainPanel.setLayout(new BorderLayout());
-        mainPanel.add(centerButtonPanel,BorderLayout.WEST);
+        mainPanel.add(centerButtonPanel, BorderLayout.WEST);
         mainPanel.add(searchPanel);
         add(mainPanel);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(800,600);
+        setSize(800, 600);
         Util.centerFrame(this);
         setVisible(true);
     }
 
     private void setupSearchPanel() {
         searchPanel.setLayout(new BorderLayout());
-        searchPanel.setBorder(new EmptyBorder(20,20,20,20));
+        searchPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         JPanel searchLine = new JPanel();
-        searchLine.setLayout(new BoxLayout(searchLine,BoxLayout.X_AXIS));
+        searchLine.setLayout(new BoxLayout(searchLine, BoxLayout.X_AXIS));
         searchTextField = new JTextField();
         searchTextField.setToolTipText("Enter search query");
         searchTextField.setFont(searchTextField.getFont().deriveFont(16f));
@@ -79,7 +79,7 @@ public class MainFrame extends JFrame implements IOnRefreshList{
 
         searchLine.add(searchTextField);
 
-        searchPanel.add(searchLine,BorderLayout.PAGE_START);
+        searchPanel.add(searchLine, BorderLayout.PAGE_START);
 
         refreshList();
         searchPanel.add(searchListPanel);
@@ -87,29 +87,29 @@ public class MainFrame extends JFrame implements IOnRefreshList{
 
     private void setupSearchListPanel(Database db) {
         JPanel list = new JPanel();
-        list.setLayout(new BoxLayout(list,BoxLayout.Y_AXIS));
+        list.setLayout(new BoxLayout(list, BoxLayout.Y_AXIS));
 
-        for(Group gr : db.getGroups()){
+        for (Group gr : db.getGroups()) {
             JLabel label = new JLabel(gr.getName());
-            label.setBorder(new EmptyBorder(0,0,5,0));
+            label.setBorder(new EmptyBorder(0, 0, 5, 0));
             label.setFont(label.getFont().deriveFont(18f));
             label.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     super.mousePressed(e);
-                    new AddGroupFrame(thisFrame,gr);
+                    new AddGroupFrame(thisFrame, gr);
                 }
             });
             list.add(label);
-            for(Product pr : gr.getProducts()){
+            for (Product pr : gr.getProducts()) {
                 JLabel label1 = new JLabel(pr.getName());
-                label1.setBorder(new EmptyBorder(0,25,5,0));
+                label1.setBorder(new EmptyBorder(0, 25, 5, 0));
                 label1.setFont(label.getFont().deriveFont(14f));
                 label1.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mousePressed(MouseEvent e) {
                         super.mousePressed(e);
-                        new AddProductFrame(thisFrame,gr,pr);
+                        new AddProductFrame(thisFrame, gr, pr);
                     }
                 });
                 list.add(label1);
@@ -117,14 +117,14 @@ public class MainFrame extends JFrame implements IOnRefreshList{
         }
 
         searchListPanel = new JScrollPane(list);
-        searchListPanel.setBorder(new EmptyBorder(20,0,0,0));
+        searchListPanel.setBorder(new EmptyBorder(20, 0, 0, 0));
     }
 
     private void setupButtonPanel() {
         centerButtonPanel.setLayout(new GridBagLayout());
-        centerButtonPanel.setBorder(new EmptyBorder(20,20,20,0));
+        centerButtonPanel.setBorder(new EmptyBorder(20, 20, 20, 0));
 
-        buttonPanel.setLayout(new GridLayout(0,1,0,10));
+        buttonPanel.setLayout(new GridLayout(0, 1, 0, 10));
 
         JButton addProduct = new JButton("Add new product");
         JButton addGroup = new JButton("Add new group");
@@ -154,18 +154,36 @@ public class MainFrame extends JFrame implements IOnRefreshList{
                 new AddProductFrame(thisFrame);
             }
         });
+
+        statistic.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new StatisticsFrame();
+            }
+        });
+
+        exportFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String path = "src/labs/lab2/File";
+                Database.getInstance().saveToFile(path);
+                JOptionPane.showMessageDialog(null,"Database exported to " + path,"Export",JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
     }
 
-    public void refreshList(){
-        if(searchListPanel != null)searchPanel.remove(searchListPanel);
+    public void refreshList() {
+        if (searchListPanel != null) searchPanel.remove(searchListPanel);
         String pattern = toPattern(searchTextField.getText());
-        if(searchTextField.getText().isBlank())pattern = ".*";
-        setupSearchListPanel(Database.getInstance().databaseMatchPattern(pattern));
+        if (searchTextField.getText().isBlank()) {
+            setupSearchListPanel(Database.getInstance());
+        } else {
+            setupSearchListPanel(Database.getInstance().databaseMatchPattern(pattern));
+        }
         searchPanel.add(searchListPanel);
         searchPanel.invalidate();
         searchPanel.updateUI();
     }
-
 
 
 }

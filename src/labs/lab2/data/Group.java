@@ -84,7 +84,7 @@ public class Group {
     @Override
     public String toString() {
         StringBuilder ret = new StringBuilder("");
-        ret.append(getName()).append('{').append(getDescription()).append('}').append('\n');
+        ret.append(getName()).append('{').append(getDescription() == null ? "No description" : getDescription()).append('}').append('\n');
         for(Product p : products){
             ret.append('\t').append(p).append('\n');
         }
@@ -94,7 +94,7 @@ public class Group {
     public double getSumPrice() {
         double sum = 0;
         for(Product pr : products){
-            sum += pr.getPriceSingle() * pr.getAmount();
+            sum += pr.getPriceAll();
         }
         return sum;
     }

@@ -1,5 +1,7 @@
 package labs.lab2.data;
 
+import java.util.Locale;
+
 public class Product {
     private String name;
     private String description;
@@ -78,10 +80,27 @@ public class Product {
         this.priceSingle = priceSingle;
     }
 
+    public double getPriceAll(){return getPriceSingle() * getAmount();}
+
     @Override
     public String toString() {
-        return String.format("%s{%s}, made by %s, amount - %f, price for one - %f",
-                getName(),getDescription(),getManufacturer(),getAmount(),getPriceSingle());
+        return String.format(Locale.ROOT,"%s{%s}, made by %s, amount - %.2f, price for one - %.2f",
+                getName(),
+                getDescription() == null ? "No description" : getDescription(),
+                getManufacturer() == null ? "unknown" : getManufacturer(),
+                getAmount(),
+                getPriceSingle());
+    }
+
+    public String fullInfo(String tabs){
+        StringBuilder ret = new StringBuilder();
+        ret.append(tabs).append(getName()).append('\n');
+        ret.append(tabs).append(getDescription() == null ? "No description" : getDescription()).append('\n').append('\n');
+        ret.append(tabs).append("Made by ").append(getManufacturer() == null ? "unknown" : getManufacturer()).append('\n');
+        ret.append(tabs).append("Amount: ").append(getAmount()).append('\n');
+        ret.append(tabs).append("Price for one: ").append(getPriceSingle()).append('\n');
+        ret.append(tabs).append("Price for all: ").append(getPriceSingle() * getAmount());
+        return ret.toString();
     }
 
     public void setAllFields(Product nProduct) {

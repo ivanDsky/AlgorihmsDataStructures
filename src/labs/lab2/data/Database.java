@@ -105,4 +105,14 @@ public class Database {
         builder.deleteCharAt(builder.length() - 1);
         return builder.toString();
     }
+
+
+    @Override
+    public String toString() {
+        StringBuilder ret = new StringBuilder();
+        for(Group gr : groups){
+            ret.append(gr.toString()).append('\n');
+        }
+        return ret.toString();
+    }
 }
