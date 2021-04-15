@@ -22,6 +22,7 @@ public class MainFrame extends JFrame implements IOnRefreshList {
     JTextField searchTextField;
     JScrollPane searchListPanel;
     private final MainFrame thisFrame;
+    private JFrame openedFrame;
     //TODO only one open edit window
 
     public MainFrame() {
@@ -30,12 +31,46 @@ public class MainFrame extends JFrame implements IOnRefreshList {
         setupButtonPanel();
         setupSearchPanel();
         setupMainPanel();
+        this.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                super.focusGained(e);
+                if(openedFrame != null)System.out.println(openedFrame.getTitle());
+            }
+        });
     }
 
     private void setupDatabase() {
         Database.getInstance().addGroup(new Group("Test"));
 
         Group prod = new Group("Prod");
+        prod.addProduct(new Product("Flour", 15.0));
+        prod.addProduct(new Product("Oil", 15.0));
+        prod.addProduct(new Product("Rice", 150.0));
+        prod.addProduct(new Product("Flour", 15.0));
+        prod.addProduct(new Product("Oil", 15.0));
+        prod.addProduct(new Product("Rice", 150.0));
+        prod.addProduct(new Product("Flour", 15.0));
+        prod.addProduct(new Product("Oil", 15.0));
+        prod.addProduct(new Product("Rice", 150.0));
+        prod.addProduct(new Product("Flour", 15.0));
+        prod.addProduct(new Product("Oil", 15.0));
+        prod.addProduct(new Product("Rice", 150.0));
+        prod.addProduct(new Product("Flour", 15.0));
+        prod.addProduct(new Product("Oil", 15.0));
+        prod.addProduct(new Product("Rice", 150.0));
+        prod.addProduct(new Product("Flour", 15.0));
+        prod.addProduct(new Product("Oil", 15.0));
+        prod.addProduct(new Product("Rice", 150.0));
+        prod.addProduct(new Product("Flour", 15.0));
+        prod.addProduct(new Product("Oil", 15.0));
+        prod.addProduct(new Product("Rice", 150.0));
+        prod.addProduct(new Product("Flour", 15.0));
+        prod.addProduct(new Product("Oil", 15.0));
+        prod.addProduct(new Product("Rice", 150.0));
+        prod.addProduct(new Product("Flour", 15.0));
+        prod.addProduct(new Product("Oil", 15.0));
+        prod.addProduct(new Product("Rice", 150.0));
         prod.addProduct(new Product("Flour", 15.0));
         prod.addProduct(new Product("Oil", 15.0));
         prod.addProduct(new Product("Rice", 150.0));
@@ -46,9 +81,6 @@ public class MainFrame extends JFrame implements IOnRefreshList {
 
         Database.getInstance().addGroup(prod);
         Database.getInstance().addGroup(unprod);
-//        Database.getInstance().getGroups().get(2).removeProduct(prod.getProducts().get(1));
-        Pattern p = Pattern.compile("");
-        Database patternDB = Database.getInstance().databaseMatchPattern(".*l.*").databaseMatchPattern(".*r");
     }
 
     private void setupMainPanel() {
@@ -99,7 +131,8 @@ public class MainFrame extends JFrame implements IOnRefreshList {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     super.mousePressed(e);
-                    new AddGroupFrame(thisFrame, gr);
+                    if(openedFrame != null)openedFrame.dispose();
+                    openedFrame = new AddGroupFrame(thisFrame, gr);
                 }
             });
             list.add(label);
@@ -111,7 +144,8 @@ public class MainFrame extends JFrame implements IOnRefreshList {
                     @Override
                     public void mousePressed(MouseEvent e) {
                         super.mousePressed(e);
-                        new AddProductFrame(thisFrame, gr, pr);
+                        if(openedFrame != null)openedFrame.dispose();
+                        openedFrame = new AddProductFrame(thisFrame, gr, pr);
                     }
                 });
                 list.add(label1);
@@ -119,6 +153,7 @@ public class MainFrame extends JFrame implements IOnRefreshList {
         }
 
         searchListPanel = new JScrollPane(list);
+        searchListPanel.getVerticalScrollBar().setUnitIncrement(16);
         searchListPanel.setBorder(new EmptyBorder(20, 0, 0, 0));
     }
 
@@ -146,21 +181,24 @@ public class MainFrame extends JFrame implements IOnRefreshList {
         addGroup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddGroupFrame(thisFrame);
+                if(openedFrame != null)openedFrame.dispose();
+                    openedFrame = new AddGroupFrame(thisFrame);
             }
         });
 
         addProduct.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddProductFrame(thisFrame);
+                if(openedFrame != null)openedFrame.dispose();
+                    openedFrame = new AddProductFrame(thisFrame);
             }
         });
 
         statistic.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new StatisticsFrame();
+                if(openedFrame != null)openedFrame.dispose();
+                    openedFrame = new StatisticsFrame();
             }
         });
 
@@ -176,7 +214,8 @@ public class MainFrame extends JFrame implements IOnRefreshList {
         changeProduct.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new UpdateFrame(thisFrame);
+                if(openedFrame != null)openedFrame.dispose();
+                openedFrame = new UpdateFrame(thisFrame);
             }
         });
     }
@@ -191,6 +230,7 @@ public class MainFrame extends JFrame implements IOnRefreshList {
         }
         searchPanel.add(searchListPanel);
         searchPanel.invalidate();
+        openedFrame = null;
         searchPanel.updateUI();
     }
 

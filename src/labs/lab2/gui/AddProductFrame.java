@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class AddProductFrame {
+public class AddProductFrame extends JFrame{
     JTextField nameField;
     JTextArea descriptionArea;
     JTextField manufacturerField;
@@ -43,7 +43,7 @@ public class AddProductFrame {
     private JPanel mainPanel;
 
     private void init() {
-        JFrame addProduct = new JFrame("Adding a product");
+        setTitle("Adding a product");
         mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -118,7 +118,7 @@ public class AddProductFrame {
                     product.setAllFields(nProduct);
                 }
                 frame.refreshList();
-                addProduct.dispose();
+                dispose();
             }
         });
 
@@ -134,7 +134,7 @@ public class AddProductFrame {
                 public void actionPerformed(ActionEvent e) {
                     actualGroup.removeProduct(product);
                     frame.refreshList();
-                    addProduct.dispose();
+                    dispose();
                 }
             });
 
@@ -145,11 +145,11 @@ public class AddProductFrame {
         }
 
 
-        addProduct.add(mainPanel);
-        addProduct.setDefaultCloseOperation(addProduct.DISPOSE_ON_CLOSE);
-        addProduct.setSize(400,400);
-        Util.centerFrame(addProduct);
-        addProduct.setVisible(true);
+        add(mainPanel);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setSize(400,400);
+        Util.centerFrame(this);
+        setVisible(true);
 
     }
 

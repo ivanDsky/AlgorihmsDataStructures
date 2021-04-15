@@ -88,7 +88,9 @@ public class StatisticsFrame extends JFrame {
             }
         }
 
-        mainPanel.add(new JScrollPane(groupList),BorderLayout.WEST);
+        JScrollPane scrollPane = new JScrollPane(groupList);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        mainPanel.add(scrollPane,BorderLayout.WEST);
 
         add(mainPanel);
 

@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddGroupFrame {
+public class AddGroupFrame extends JFrame {
 
     JTextField nameField;
     JTextArea descriptionArea;
@@ -33,7 +33,7 @@ public class AddGroupFrame {
     }
 
     private void init() {
-        JFrame addGroup = new JFrame("Adding a group");
+        setTitle("Adding a group");
         JPanel mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -96,7 +96,7 @@ public class AddGroupFrame {
                     Database.getInstance().updateGroup(group.getName(), nGroup);
                 }
                 frame.refreshList();
-                addGroup.dispose();
+                dispose();
             }
         });
 
@@ -113,7 +113,7 @@ public class AddGroupFrame {
                 public void actionPerformed(ActionEvent e) {
                     Database.getInstance().removeGroup(group);
                     frame.refreshList();
-                    addGroup.dispose();
+                    dispose();
                 }
             });
 
@@ -123,11 +123,11 @@ public class AddGroupFrame {
             mainPanel.add(remove, c);
         }
 
-        addGroup.add(mainPanel);
-        addGroup.setDefaultCloseOperation(addGroup.DISPOSE_ON_CLOSE);
-        addGroup.setSize(400, 400);
-        Util.centerFrame(addGroup);
-        addGroup.setVisible(true);
+        add(mainPanel);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setSize(400, 400);
+        Util.centerFrame(this);
+        setVisible(true);
 
     }
 
