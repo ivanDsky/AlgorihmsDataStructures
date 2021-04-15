@@ -21,6 +21,12 @@ public class Database {
     }
 
     public void updateGroup(String name,Group group){
+        Group org = getGroupByName(name);
+        org.setName(group.getName());
+        org.setDescription(group.getDescription());
+    }
+
+    public Group getGroupByName(String name){
         Group org = null;
         for(Group gr : groups){
             if(gr.getName().equals(name)){
@@ -28,8 +34,7 @@ public class Database {
                 break;
             }
         }
-        org.setName(group.getName());
-        org.setDescription(group.getDescription());
+        return org;
     }
 
     public void removeGroup(Group group){
@@ -100,9 +105,4 @@ public class Database {
         builder.deleteCharAt(builder.length() - 1);
         return builder.toString();
     }
-}
-
-enum DBItem{
-    GROUP,
-    PRODUCT
 }

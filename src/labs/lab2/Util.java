@@ -29,4 +29,17 @@ public class Util {
         centerPoint = new Point(centerPoint.x - frame.getWidth() / 2,centerPoint.y - frame.getHeight() / 2);
         frame.setLocation(centerPoint);
     }
+
+    public static String removeEndSpaces(String org){
+        int st = 0;
+        int fn = org.length();
+        for(int i = 0;i < org.length(); ++i){
+            if(Character.isSpaceChar(org.charAt(i)))st++;else break;
+        }
+        for(int i = org.length() - 1;i >= 0; --i){
+            if(Character.isSpaceChar(org.charAt(i)))fn--;else break;
+        }
+        if(st >= fn)return null;
+        return org.substring(st,fn);
+    }
 }

@@ -14,9 +14,9 @@ public class Product {
     public Product(String name,double priceSingle){
         this.name = name;
         this.priceSingle = priceSingle;
-        this.description = "No description";
+        this.description = null;
         this.amount = 1;
-        this.manufacturer = "Unknown";
+        this.manufacturer = null;
     }
 
     public Product(String name,String manufacturer,double priceSingle){
@@ -84,4 +84,11 @@ public class Product {
                 getName(),getDescription(),getManufacturer(),getAmount(),getPriceSingle());
     }
 
+    public void setAllFields(Product nProduct) {
+        setName(nProduct.getName());
+        setDescription(nProduct.getDescription());
+        setManufacturer(nProduct.getManufacturer());
+        setAmount(nProduct.getAmount());
+        setPriceSingle(nProduct.getPriceSingle());
+    }
 }

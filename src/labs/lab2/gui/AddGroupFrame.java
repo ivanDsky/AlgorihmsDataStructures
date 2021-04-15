@@ -1,6 +1,7 @@
 package labs.lab2.gui;
 
 import labs.lab2.Util;
+import labs.lab2.data.DBItem;
 import labs.lab2.data.Database;
 import labs.lab2.data.Group;
 
@@ -81,11 +82,12 @@ public class AddGroupFrame{
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!onValidate()){
-                    JOptionPane.showMessageDialog(null,"Name can't be empty","Error",JOptionPane.ERROR_MESSAGE);
+                String validate = onValidate();
+                if(validate != null){
+                    JOptionPane.showMessageDialog(null,validate,"Error",JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                Group nGroup = new Group(nameField.getText(),descriptionArea.getText());
+                Group nGroup = new Group(Util.removeEndSpaces(nameField.getText()),descriptionArea.getText());
                 if(group == null){
                     Database.getInstance().addGroup(nGroup);
                 }else{
@@ -106,13 +108,19 @@ public class AddGroupFrame{
         addGroup.add(mainPanel);
         addGroup.setDefaultCloseOperation(addGroup.DISPOSE_ON_CLOSE);
         addGroup.setSize(400,400);
+        Util.centerFrame(addGroup);
         addGroup.setVisible(true);
 
-        Util.centerFrame(addGroup);
     }
 
-    private boolean onValidate(){
-        return !nameField.getText().isBlank();
+    private String onValidate(){
+        StringBuilder ret = new StringBuilder();
+        if(nameField.getText().isBlank())ret.append("Name can't be empty\n");else
+        if(group == null && !Database.getInstance().isNameUnique(Util.removeEndSpaces(nameField.getText()), DBItem.GROUP))ret.append("Name should be unique\n");
+
+        if(ret.isEmpty())return null;
+        return ret.deleteCharAt(ret.length() - 1).toString();
     }
+
 
 }

@@ -29,7 +29,6 @@ public class MainFrame extends JFrame implements IOnRefreshList{
         setupButtonPanel();
         setupSearchPanel();
         setupMainPanel();
-        Util.centerFrame(this);
     }
 
     private void setupDatabase() {
@@ -58,6 +57,7 @@ public class MainFrame extends JFrame implements IOnRefreshList{
         add(mainPanel);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(800,600);
+        Util.centerFrame(this);
         setVisible(true);
     }
 
@@ -105,24 +105,16 @@ public class MainFrame extends JFrame implements IOnRefreshList{
                 JLabel label1 = new JLabel(pr.getName());
                 label1.setBorder(new EmptyBorder(0,25,5,0));
                 label1.setFont(label.getFont().deriveFont(14f));
+                label1.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        super.mousePressed(e);
+                        new AddProductFrame(thisFrame,gr,pr);
+                    }
+                });
                 list.add(label1);
             }
         }
-
-//        for(int i = 0;i < 100; ++i) {
-//            JLabel label = new JLabel("Label item #" + i);
-//            int lft = (i % 10) == 0 ? 0 : 25;
-//            label.setBorder(new EmptyBorder(0,lft,5,0));
-//            label.addMouseListener(new MouseAdapter() {
-//                @Override
-//                public void mousePressed(MouseEvent e) {
-//                    super.mousePressed(e);
-//                    System.out.println(label.getText());
-//                }
-//            });
-//            list.add(label);
-//        }
-
 
         searchListPanel = new JScrollPane(list);
         searchListPanel.setBorder(new EmptyBorder(20,0,0,0));
@@ -153,6 +145,13 @@ public class MainFrame extends JFrame implements IOnRefreshList{
             @Override
             public void actionPerformed(ActionEvent e) {
                 new AddGroupFrame(thisFrame);
+            }
+        });
+
+        addProduct.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AddProductFrame(thisFrame);
             }
         });
     }
