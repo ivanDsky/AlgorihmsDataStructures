@@ -1,14 +1,35 @@
 package labs.lab2.gui;
 
+import labs.lab2.data.Database;
+import labs.lab2.data.Group;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AddGroupFrame extends JFrame {
 
     JTextField nameField;
     JTextArea descriptionArea;
 
-    AddGroupFrame() {
+    private Group group;
+    private IOnRefreshList frame;
+
+
+    public AddGroupFrame(IOnRefreshList frame){
+        group = null;
+        this.frame = frame;
+        init();
+    }
+
+    public AddGroupFrame(IOnRefreshList frame,Group group){
+        this.group = group;
+        this.frame = frame;
+        init();
+    }
+
+    private void init() {
         JFrame addGroup = new JFrame("Adding a group");
         JPanel mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -25,13 +46,13 @@ public class AddGroupFrame extends JFrame {
 
 
 
-        JLabel name = new JLabel("Name:");
+        JLabel nameLabel = new JLabel("Name:");
 
         c.gridy = 1;
         c.gridwidth = 1;
-        mainPanel.add(name,c);
+        mainPanel.add(nameLabel,c);
 
-        nameField = new JTextField(1);
+        nameField = new JTextField(group == null ? null : group.getName(),1);
         nameField.setSize(40,10);
         c.gridx = 1;
         c.gridy = 1;
@@ -41,11 +62,12 @@ public class AddGroupFrame extends JFrame {
         c.gridx = 0;
         c.gridy = 2;
         c.weighty = 1000;
-        JLabel description = new JLabel("Description:");
-        mainPanel.add(description,c);
 
 
-        descriptionArea = new JTextArea(5,20);
+        JLabel descLabel = new JLabel("Description:");
+        mainPanel.add(descLabel,c);
+
+        descriptionArea = new JTextArea(group == null ? null : group.getDescription(),5,20);
         JScrollPane descriptionScroll = new JScrollPane(descriptionArea);
         c.gridx = 1;
         c.gridy = 2;
@@ -55,6 +77,20 @@ public class AddGroupFrame extends JFrame {
 
 
         JButton submit = new JButton("OK");
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Group nGroup = new Group(nameField.getText(),descriptionArea.getText());
+                if(group == null){
+                    Database.getInstance().addGroup(nGroup);
+                }else{
+                    Database.getInstance().updateGroup(group.getName(),nGroup);
+                }
+                frame.refreshList();
+                addGroup.dispose();
+            }
+        });
+
         c.gridwidth = 2;
         c.gridx = 0;
         c.gridy = 3;

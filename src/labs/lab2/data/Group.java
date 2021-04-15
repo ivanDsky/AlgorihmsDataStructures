@@ -12,7 +12,7 @@ public class Group {
     public Group(String name){
         products = new ArrayList<>();
         this.name = name;
-        this.description = "No description";
+        this.description = null;
     }
 
     public Group(String name,String description){
@@ -61,6 +61,7 @@ public class Group {
     }
 
     public void setDescription(String description) {
+        if(description == null || description.isBlank())description = null;
         this.description = description;
     }
 

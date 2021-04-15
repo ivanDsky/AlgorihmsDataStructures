@@ -1,25 +1,50 @@
 package labs.lab2.gui;
 
+import labs.lab2.data.Database;
+import labs.lab2.data.Group;
+import labs.lab2.data.Product;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.util.regex.Pattern;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements IOnRefreshList{
     JPanel mainPanel = new JPanel();
     JPanel buttonPanel = new JPanel();
     JPanel centerButtonPanel = new JPanel();
     JPanel searchPanel = new JPanel();
+    JTextField searchTextField;
     JScrollPane searchListPanel;
+    private final MainFrame thisFrame;
 
 
     public MainFrame(){
+        thisFrame = this;
+        setupDatabase();
         setupButtonPanel();
         setupSearchPanel();
         setupMainPanel();
+    }
+
+    private void setupDatabase() {
+        Database.getInstance().addGroup(new Group("Test"));
+
+        Group prod = new Group("Prod");
+        prod.addProduct(new Product("Flour",15.0));
+        prod.addProduct(new Product("Oil",15.0));
+        prod.addProduct(new Product("Rice",150.0));
+
+        Group unprod = new Group("Unprod");
+        unprod.addProduct(new Product("Soap",20.0));
+        unprod.addProduct(new Product("Napkin","Napkins for kitchen","Kyiv-Napkins",20,3));
+
+        Database.getInstance().addGroup(prod);
+        Database.getInstance().addGroup(unprod);
+//        Database.getInstance().getGroups().get(2).removeProduct(prod.getProducts().get(1));
+        Pattern p = Pattern.compile("");
+        Database patternDB = Database.getInstance().databaseMatchPattern(".*l.*").databaseMatchPattern(".*r");
     }
 
     private void setupMainPanel() {
@@ -38,35 +63,62 @@ public class MainFrame extends JFrame {
 
         JPanel searchLine = new JPanel();
         searchLine.setLayout(new BoxLayout(searchLine,BoxLayout.X_AXIS));
-        JTextField searchTextField = new JTextField();
-        JButton searchButton = new JButton("Search text");
+        searchTextField = new JTextField();
+        searchTextField.setToolTipText("Enter search query");
+        searchTextField.setFont(searchTextField.getFont().deriveFont(16f));
+        searchTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                refreshList();
+            }
+        });
+
         searchLine.add(searchTextField);
-        searchLine.add(searchButton);
 
         searchPanel.add(searchLine,BorderLayout.PAGE_START);
 
-
-        setupSearchListPanel();
+        refreshList();
         searchPanel.add(searchListPanel);
     }
 
-    private void setupSearchListPanel() {
+    private void setupSearchListPanel(Database db) {
         JPanel list = new JPanel();
         list.setLayout(new BoxLayout(list,BoxLayout.Y_AXIS));
 
-        for(int i = 0;i < 100; ++i) {
-            JLabel label = new JLabel("Label item #" + i);
-            int lft = (i % 10) == 0 ? 0 : 25;
-            label.setBorder(new EmptyBorder(0,lft,5,0));
+        for(Group gr : db.getGroups()){
+            JLabel label = new JLabel(gr.getName());
+            label.setBorder(new EmptyBorder(0,0,5,0));
+            label.setFont(label.getFont().deriveFont(18f));
             label.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     super.mousePressed(e);
-                    System.out.println(label.getText());
+                    new AddGroupFrame(thisFrame,gr);
                 }
             });
             list.add(label);
+            for(Product pr : gr.getProducts()){
+                JLabel label1 = new JLabel(pr.getName());
+                label1.setBorder(new EmptyBorder(0,25,5,0));
+                label1.setFont(label.getFont().deriveFont(14f));
+                list.add(label1);
+            }
         }
+
+//        for(int i = 0;i < 100; ++i) {
+//            JLabel label = new JLabel("Label item #" + i);
+//            int lft = (i % 10) == 0 ? 0 : 25;
+//            label.setBorder(new EmptyBorder(0,lft,5,0));
+//            label.addMouseListener(new MouseAdapter() {
+//                @Override
+//                public void mousePressed(MouseEvent e) {
+//                    super.mousePressed(e);
+//                    System.out.println(label.getText());
+//                }
+//            });
+//            list.add(label);
+//        }
+
 
         searchListPanel = new JScrollPane(list);
         searchListPanel.setBorder(new EmptyBorder(20,0,0,0));
@@ -96,10 +148,39 @@ public class MainFrame extends JFrame {
         addGroup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddGroupFrame();
+                new AddGroupFrame(thisFrame);
             }
         });
     }
 
+    public void refreshList(){
+        if(searchListPanel != null)searchPanel.remove(searchListPanel);
+        String pattern = toPattern(searchTextField.getText());
+        if(searchTextField.getText().isBlank())pattern = ".*";
+        setupSearchListPanel(Database.getInstance().databaseMatchPattern(pattern));
+        searchPanel.add(searchListPanel);
+        searchPanel.invalidate();
+        searchPanel.updateUI();
+    }
+
+    public static String toPattern(String inp){
+        //TODO review pattern
+        StringBuilder ret = new StringBuilder("");
+        char prev = '0';
+        for(int i = 0;i < inp.length(); ++i){
+            char cur = inp.charAt(i);
+            if(cur == '*')ret.append(".*");
+            else if(cur == '?')ret.append(".");
+            else if(cur == '\\')ret.append("\\\\\\\\");
+            else {
+                ret.append('[');
+                if(cur == '[')ret.append("\\\\[");
+                else ret.append(cur);
+                ret.append(']');
+            }
+
+        }
+        return ret.toString();
+    }
 
 }

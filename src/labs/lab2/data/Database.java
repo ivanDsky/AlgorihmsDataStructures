@@ -9,9 +9,27 @@ import java.util.ArrayList;
 
 public class Database {
     private final ArrayList<Group> groups = new ArrayList<>();
+    private static Database instance = null;
+
+    public static Database getInstance(){
+        if(instance == null)instance = new Database();
+        return instance;
+    }
 
     public void addGroup(Group group){
         groups.add(group);
+    }
+
+    public void updateGroup(String name,Group group){
+        Group org = null;
+        for(Group gr : groups){
+            if(gr.getName().equals(name)){
+                org = gr;
+                break;
+            }
+        }
+        org.setName(group.getName());
+        org.setDescription(group.getDescription());
     }
 
     public void removeGroup(Group group){
