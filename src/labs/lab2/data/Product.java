@@ -10,7 +10,6 @@ public class Product {
     private double priceSingle;
 
     private Product(){
-        //TODO
     }
 
     public Product(String name,double priceSingle){

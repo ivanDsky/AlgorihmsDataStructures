@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 import static labs.lab2.Util.toPattern;
 
 public class MainFrame extends JFrame implements IOnRefreshList {
+
     JPanel mainPanel = new JPanel();
     JPanel buttonPanel = new JPanel();
     JPanel centerButtonPanel = new JPanel();
@@ -57,6 +58,7 @@ public class MainFrame extends JFrame implements IOnRefreshList {
         add(mainPanel);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(800, 600);
+        setTitle("Manager");
         Util.centerFrame(this);
         setVisible(true);
     }
@@ -168,6 +170,13 @@ public class MainFrame extends JFrame implements IOnRefreshList {
                 String path = "src/labs/lab2/File";
                 Database.getInstance().saveToFile(path);
                 JOptionPane.showMessageDialog(null,"Database exported to " + path,"Export",JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        changeProduct.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new UpdateFrame(thisFrame);
             }
         });
     }

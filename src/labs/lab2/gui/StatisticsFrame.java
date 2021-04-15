@@ -16,11 +16,12 @@ public class StatisticsFrame extends JFrame {
     private JLabel sumItemLabel;
 
     StatisticsFrame(){
+        setTitle("Statistics");
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBorder(new EmptyBorder(10,10,10,10));
 
         JLabel title = new JLabel("Statistics",SwingConstants.CENTER);
-        title.setFont(title.getFont().deriveFont(20f));
+        title.setFont(title.getFont().deriveFont(18f));
         title.setBorder(new EmptyBorder(15,0,25,0));
         mainPanel.add(title,BorderLayout.NORTH);
 

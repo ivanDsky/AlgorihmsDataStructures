@@ -7,6 +7,7 @@ import labs.lab2.data.Group;
 import labs.lab2.data.Product;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,6 +52,8 @@ public class AddProductFrame {
         c.insets = new Insets(0,10,10,10);
 
         JLabel title = new JLabel("Add new product",SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(18f));
+        title.setBorder(new EmptyBorder(10,0,15,0));
         mainPanel.add(title,c);
 
         nameField = createField("Name:",product == null ? null : product.getName(),1);

@@ -6,6 +6,7 @@ import labs.lab2.data.Database;
 import labs.lab2.data.Group;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,6 +45,8 @@ public class AddGroupFrame {
         c.insets = new Insets(10, 10, 10, 10);
 
         JLabel title = new JLabel("Add new group", SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(18f));
+        title.setBorder(new EmptyBorder(10,0,15,0));
         mainPanel.add(title, c);
 
 
