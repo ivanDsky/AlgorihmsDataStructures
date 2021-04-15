@@ -6,54 +6,67 @@ import java.awt.*;
 public class AddGroupFrame extends JFrame {
 
     JTextField nameField;
-    JTextField descriptionField;
+    JTextArea descriptionArea;
 
     AddGroupFrame() {
         JFrame addGroup = new JFrame("Adding a group");
-        JPanel mainPanel = new JPanel();
-        JPanel namePanel = new JPanel(new BorderLayout());
-        JPanel descriptionPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.NORTH;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weighty = 1;
+        c.gridwidth = 2;
+        c.insets = new Insets(10,10,10,10);
 
-        JLabel title = new JLabel("Title");
-        title.setVerticalAlignment(JLabel.TOP);
-        title.setHorizontalAlignment(JLabel.CENTER);
-        addGroup.add(title);
-
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        JLabel title = new JLabel("Add new group",SwingConstants.CENTER);
+        mainPanel.add(title,c);
 
 
 
-        namePanel.add(Box.createRigidArea(new Dimension(10,50)));
         JLabel name = new JLabel("Name:");
-        mainPanel.add(name, BorderLayout.WEST);
+
+        c.gridy = 1;
+        c.gridwidth = 1;
+        mainPanel.add(name,c);
 
         nameField = new JTextField(1);
         nameField.setSize(40,10);
-        mainPanel.add(nameField);
+        c.gridx = 1;
+        c.gridy = 1;
+        mainPanel.add(nameField,c);
 
 
-        descriptionPanel.add(Box.createRigidArea(new Dimension(10,50)));
+        c.gridx = 0;
+        c.gridy = 2;
+        c.weighty = 1000;
         JLabel description = new JLabel("Description:");
-        mainPanel.add(description, BorderLayout.WEST);
+        mainPanel.add(description,c);
 
 
-        descriptionField = new JTextField(1);
-        descriptionField.setSize(40,10);
-        mainPanel.add(descriptionField);
+        descriptionArea = new JTextArea(5,20);
+        JScrollPane descriptionScroll = new JScrollPane(descriptionArea);
+        c.gridx = 1;
+        c.gridy = 2;
+        c.weightx = 2.8;
+        mainPanel.add(descriptionScroll,c);
 
 
+
+        JButton submit = new JButton("OK");
+        c.gridwidth = 2;
+        c.gridx = 0;
+        c.gridy = 3;
+        c.weighty = 1;
+        mainPanel.add(submit,c);
 
 
         addGroup.add(mainPanel);
-        addGroup.pack();
-        addGroup.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addGroup.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         addGroup.setSize(400,400);
         addGroup.setVisible(true);
 
     }
 
-    public static void main(String[] args) {
-        new AddGroupFrame();
-
-    }
 }

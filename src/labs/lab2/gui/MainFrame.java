@@ -3,6 +3,10 @@ package labs.lab2.gui;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame {
     JPanel mainPanel = new JPanel();
@@ -47,15 +51,22 @@ public class MainFrame extends JFrame {
     }
 
     private void setupSearchListPanel() {
-        JList<String> list = new JList(new String[]{
-                "First item","Second item","Third item",
-                "First item","Second item","Third item",
-                "First item","Second item","Third item",
-                "First item","Second item","Third item",
-                "First item","Second item","Third item",
-                "First item","Second item","Third item",
-                "First item","Second item","Third item"
-        });
+        JPanel list = new JPanel();
+        list.setLayout(new BoxLayout(list,BoxLayout.Y_AXIS));
+
+        for(int i = 0;i < 100; ++i) {
+            JLabel label = new JLabel("Label item #" + i);
+            int lft = (i % 10) == 0 ? 0 : 25;
+            label.setBorder(new EmptyBorder(0,lft,5,0));
+            label.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    super.mousePressed(e);
+                    System.out.println(label.getText());
+                }
+            });
+            list.add(label);
+        }
 
         searchListPanel = new JScrollPane(list);
         searchListPanel.setBorder(new EmptyBorder(20,0,0,0));
@@ -66,14 +77,28 @@ public class MainFrame extends JFrame {
         centerButtonPanel.setBorder(new EmptyBorder(20,20,20,0));
 
         buttonPanel.setLayout(new GridLayout(0,1,0,10));
-        JButton btn1 = new JButton("Add new product");
-        btn1.setMaximumSize(new Dimension(100,10));
-        buttonPanel.add(btn1);
-        buttonPanel.add(new JButton("Text1"));
-        buttonPanel.add(new JButton("Text2"));
-        buttonPanel.add(new JButton("Text3"));
+
+        JButton addProduct = new JButton("Add new product");
+        JButton addGroup = new JButton("Add new group");
+        JButton changeProduct = new JButton("Update product");
+        JButton statistic = new JButton("Statistics");
+        JButton exportFile = new JButton("Export to file");
+
+        buttonPanel.add(addProduct);
+        buttonPanel.add(addGroup);
+        buttonPanel.add(changeProduct);
+        buttonPanel.add(statistic);
+        buttonPanel.add(exportFile);
 
         centerButtonPanel.add(buttonPanel);
+
+
+        addGroup.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AddGroupFrame();
+            }
+        });
     }
 
 
