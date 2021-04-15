@@ -17,6 +17,8 @@ public class Student {
     }
 
     public void setAverageGrade(double averageGrade) {
+        if(averageGrade < 0)averageGrade = 0;
+        if(averageGrade > 100)averageGrade = 100;
         this.averageGrade = averageGrade;
     }
 
@@ -25,6 +27,8 @@ public class Student {
     }
 
     public Student(String fullName, double averageGrade) {
+        if(averageGrade < 0)averageGrade = 0;
+        if(averageGrade > 100)averageGrade = 100;
         this.fullName = fullName;
         this.averageGrade = averageGrade;
     }

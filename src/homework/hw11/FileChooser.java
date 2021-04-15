@@ -39,6 +39,7 @@ public class FileChooser{
         StringBuilder allContext = new StringBuilder("");
 
         int sumFileSize = 0;
+        long sumAllWords = 0;
 
         for(File file : files){
             sumFileSize += file.length();
@@ -63,6 +64,7 @@ public class FileChooser{
             vocabulary.append(word).append(' ').append(allFilesSeparator.uniqueWordsMap.get(word)).append('\n');
             for(Pair<String,Integer> el : ar){
                 vocabulary.append(String.format("\t%d - %s\n",el.second,el.first));
+                sumAllWords += el.second;
             }
         }
         System.out.println("End vocabulary creation");
@@ -74,9 +76,10 @@ public class FileChooser{
         }
 
         System.out.println(vocabulary);
-        System.out.printf("All collection size : %d\n" +
-                "Vocabulary size : %d\n" +
-                "Amount of unique words : %d\n", sumFileSize, voc.length(), allFilesSeparator.uniqueWords.size());
+        System.out.printf("All collection size: %d\n" +
+                "Vocabulary size: %d\n" +
+                "Amount of unique words: %d\n" +
+                "Amount of all words: %d\n", sumFileSize, voc.length(), allFilesSeparator.uniqueWords.size(),sumAllWords);
     }
 
     public ArrayList<Pair<String, Integer>> getWordStatistic(String word){
