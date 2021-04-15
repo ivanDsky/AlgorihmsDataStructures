@@ -80,6 +80,10 @@ public class AddGroupFrame extends JFrame {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(!onValidate()){
+                    JOptionPane.showMessageDialog(null,"Name can't be empty","Error",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 Group nGroup = new Group(nameField.getText(),descriptionArea.getText());
                 if(group == null){
                     Database.getInstance().addGroup(nGroup);
@@ -103,6 +107,10 @@ public class AddGroupFrame extends JFrame {
         addGroup.setSize(400,400);
         addGroup.setVisible(true);
 
+    }
+
+    private boolean onValidate(){
+        return !nameField.getText().isBlank();
     }
 
 }
