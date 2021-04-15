@@ -1,5 +1,6 @@
 package labs.lab2.gui;
 
+import labs.lab2.Util;
 import labs.lab2.data.Database;
 import labs.lab2.data.Group;
 import labs.lab2.data.Product;
@@ -9,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.regex.Pattern;
+
+import static labs.lab2.Util.toPattern;
 
 public class MainFrame extends JFrame implements IOnRefreshList{
     JPanel mainPanel = new JPanel();
@@ -26,6 +29,7 @@ public class MainFrame extends JFrame implements IOnRefreshList{
         setupButtonPanel();
         setupSearchPanel();
         setupMainPanel();
+        Util.centerFrame(this);
     }
 
     private void setupDatabase() {
@@ -163,24 +167,6 @@ public class MainFrame extends JFrame implements IOnRefreshList{
         searchPanel.updateUI();
     }
 
-    public static String toPattern(String inp){
-        //TODO review pattern
-        StringBuilder ret = new StringBuilder("");
-        char prev = '0';
-        for(int i = 0;i < inp.length(); ++i){
-            char cur = inp.charAt(i);
-            if(cur == '*')ret.append(".*");
-            else if(cur == '?')ret.append(".");
-            else if(cur == '\\')ret.append("\\\\\\\\");
-            else {
-                ret.append('[');
-                if(cur == '[')ret.append("\\\\[");
-                else ret.append(cur);
-                ret.append(']');
-            }
 
-        }
-        return ret.toString();
-    }
 
 }

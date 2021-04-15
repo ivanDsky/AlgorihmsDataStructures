@@ -1,5 +1,6 @@
 package labs.lab2.gui;
 
+import labs.lab2.Util;
 import labs.lab2.data.Database;
 import labs.lab2.data.Group;
 
@@ -8,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddGroupFrame extends JFrame {
+public class AddGroupFrame{
 
     JTextField nameField;
     JTextArea descriptionArea;
@@ -103,10 +104,11 @@ public class AddGroupFrame extends JFrame {
 
 
         addGroup.add(mainPanel);
-        addGroup.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        addGroup.setDefaultCloseOperation(addGroup.DISPOSE_ON_CLOSE);
         addGroup.setSize(400,400);
         addGroup.setVisible(true);
 
+        Util.centerFrame(addGroup);
     }
 
     private boolean onValidate(){
