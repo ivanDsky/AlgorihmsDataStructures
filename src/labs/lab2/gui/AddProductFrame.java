@@ -175,10 +175,10 @@ public class AddProductFrame extends JFrame{
     private String onValidate(){
         StringBuilder ret = new StringBuilder();
         if(nameField.getText().isBlank())ret.append("Name can't be empty\n");else
-        if(!product.getName().equals(Util.removeEndSpaces(nameField.getText()))
+        if(groupBox.getSelectedIndex() == -1)ret.append("Create new group\n");
+        if((product == null || (!product.getName().equals(Util.removeEndSpaces(nameField.getText()))))
                 && !Database.getInstance().isNameUnique(Util.removeEndSpaces(nameField.getText()), DBItem.PRODUCT))
             ret.append("Name should be unique\n");
-        if(groupBox.getSelectedIndex() == -1)ret.append("Create new group\n");
         try{
             double val = Double.parseDouble(priceField.getText());
             if(val < 0)ret.append("Price can't be less than 0\n");

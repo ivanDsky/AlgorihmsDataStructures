@@ -134,7 +134,7 @@ public class AddGroupFrame extends JFrame {
     private String onValidate() {
         StringBuilder ret = new StringBuilder();
         if (nameField.getText().isBlank()) ret.append("Name can't be empty\n");
-        else if (!group.getName().equals(Util.removeEndSpaces(nameField.getText()))
+        else if ((group == null || !group.getName().equals(Util.removeEndSpaces(nameField.getText())))
                 && !Database.getInstance().isNameUnique(Util.removeEndSpaces(nameField.getText()), DBItem.GROUP))
             ret.append("Name should be unique\n");
         if (ret.isEmpty()) return null;
