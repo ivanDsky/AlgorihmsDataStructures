@@ -41,6 +41,15 @@ public class MainFrame extends JFrame implements IOnRefreshList {
     }
 
     private void setupDatabase() {
+//        for(int i = 1;i <= 100; ++i){
+//            Group cur = new Group("Group_" + i);
+//            for(int j = 1;j <= 100; ++j){
+//                cur.addProduct(new Product("Product_" + i + '_'+j,i * j));
+//            }
+//            Database.getInstance().addGroup(cur);
+//        }
+
+
         Database.getInstance().addGroup(new Group("Test"));
 
         Group prod = new Group("Prod");

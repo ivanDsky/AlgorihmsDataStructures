@@ -27,6 +27,7 @@ public class AddGroupFrame extends JFrame {
     }
 
     public AddGroupFrame(IOnRefreshList frame, Group group) {
+        group = Database.getInstance().getGroupByName(group.getName());
         this.group = group;
         this.frame = frame;
         init();
@@ -125,7 +126,7 @@ public class AddGroupFrame extends JFrame {
 
         add(mainPanel);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(400, 400);
+        setSize(400, 450);
         Util.centerFrame(this);
         setVisible(true);
 

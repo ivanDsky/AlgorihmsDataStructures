@@ -65,13 +65,24 @@ public class UpdateFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 removeBox.setSelected(!addBox.isSelected());
+                if(removeBox.isSelected()){
+                    if(selectedProduct != null)valueLabel.setText(String.format("Value[0..%.1f]",selectedProduct.getAmount()));
+                }else {
+                    valueLabel.setText("Value:");
+                }
             }
         });
         removeBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addBox.setSelected(!removeBox.isSelected());
+                if(removeBox.isSelected()){
+                    if(selectedProduct != null)valueLabel.setText(String.format("Value[0..%.1f]",selectedProduct.getAmount()));
+                }else{
+                    valueLabel.setText("Value:");
+                }
             }
+
         });
 
         c.gridx = 0;

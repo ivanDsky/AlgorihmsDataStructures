@@ -34,6 +34,7 @@ public class AddProductFrame extends JFrame{
     }
 
     public AddProductFrame(IOnRefreshList frame, Group group, Product product){
+        group = Database.getInstance().getGroupByName(group.getName());
         this.group = group;
         this.product = product;
         this.frame = frame;
@@ -147,7 +148,7 @@ public class AddProductFrame extends JFrame{
 
         add(mainPanel);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(400,400);
+        setSize(400,450);
         Util.centerFrame(this);
         setVisible(true);
 
