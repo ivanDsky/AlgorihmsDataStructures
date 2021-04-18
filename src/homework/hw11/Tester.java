@@ -14,7 +14,7 @@ public class Tester {
             try {
                 chooser.readFiles();
                 break;
-            } catch (Exception e) {
+            } catch (FileChooseException e) {
                 JOptionPane.showMessageDialog(null,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
                 System.out.println(e.getMessage());
             }

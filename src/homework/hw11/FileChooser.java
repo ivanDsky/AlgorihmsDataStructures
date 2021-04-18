@@ -5,8 +5,12 @@ import utils.data.Pair;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static homework.hw11.FileChooseException.MIN_AMOUNT_OF_FIlES;
+import static homework.hw11.FileChooseException.MIN_FILE_SIZE;
 
 public class FileChooser{
     private File[] files;
@@ -15,8 +19,7 @@ public class FileChooser{
     private JFileChooser fileChooser = new JFileChooser("D:");
 
 
-    private static final int MIN_AMOUNT_OF_FIlES = 10;
-    private static final int MIN_FILE_SIZE = 150 * 1024;
+
     private static final String VOCABULARY_PATH = "src/homework/hw11/Vocabulary.txt";
 
 
@@ -26,13 +29,21 @@ public class FileChooser{
         fileChooser.getActionMap().get("viewTypeDetails").actionPerformed(null);
     }
 
-    public void readFiles() throws Exception{
+    public void readFiles() throws FileChooseException{
         files = getFilesFromChooser();
-        if(files == null || files.length < MIN_AMOUNT_OF_FIlES)throw new Exception("You need to select " + MIN_AMOUNT_OF_FIlES + " or more files");
+        if(files == null || files.length < MIN_AMOUNT_OF_FIlES)throw new FileChooseException.NotEnoughFiles();
         for(File file : files){
-            if(!file.isFile())throw new Exception(file.getName() + " is not a file");
-            if(file.length() < MIN_FILE_SIZE)throw new Exception(file.getName() + " is too small");
+            if(!isTextFile(file))throw new FileChooseException.NotTextFile(file.getName());
+            if(file.length() < MIN_FILE_SIZE)throw new FileChooseException.SmallFileSize(file.getName());
         }
+    }
+
+    private boolean isTextFile(File file) {
+        String name = file.getName();
+        int dotIndex = name.indexOf('.');
+        if(dotIndex == -1)return false;
+        String extension = name.substring(dotIndex);
+        return extension.equals(".txt") || extension.equals(".bat") || extension.equals(".ttt");
     }
 
     public void generateVocabulary(){
