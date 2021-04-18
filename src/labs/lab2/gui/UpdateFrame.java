@@ -55,10 +55,10 @@ public class UpdateFrame extends JFrame {
 
         c.gridx = 0;
         c.gridy = 3;
-        addBox = new JCheckBox("Add:",true);
+        addBox = new JCheckBox("Add",true);
         mainPanel.add(addBox,c);
         c.gridx = 1;
-        JCheckBox removeBox = new JCheckBox("Remove:");
+        JCheckBox removeBox = new JCheckBox("Remove");
         mainPanel.add(removeBox,c);
 
         addBox.addActionListener(new ActionListener() {
