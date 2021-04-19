@@ -65,22 +65,14 @@ public class UpdateFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 removeBox.setSelected(!addBox.isSelected());
-                if(removeBox.isSelected()){
-                    if(selectedProduct != null)valueLabel.setText(String.format("Value[0..%.1f]",selectedProduct.getAmount()));
-                }else {
-                    valueLabel.setText("Value:");
-                }
+                updateValue();
             }
         });
         removeBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addBox.setSelected(!removeBox.isSelected());
-                if(removeBox.isSelected()){
-                    if(selectedProduct != null)valueLabel.setText(String.format("Value[0..%.1f]",selectedProduct.getAmount()));
-                }else{
-                    valueLabel.setText("Value:");
-                }
+                updateValue();
             }
 
         });
@@ -143,16 +135,28 @@ public class UpdateFrame extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     selectedProduct = group.getProducts().get(productBox.getSelectedIndex());
-                    valueLabel.setText(String.format("Value[0..%.1f]",selectedProduct.getAmount()));
+                    updateValue();
                 }
             });
             productBox.setSelectedIndex(0);
+        }else{
+            selectedProduct = null;
+            updateValue();
         }
+
         c.gridx = 1;
         c.gridy = 2;
         c.weightx = 2.8;
         mainPanel.add(productBox,c);
         mainPanel.updateUI();
+    }
+
+    private void updateValue(){
+        if(addBox != null && selectedProduct != null && !addBox.isSelected()){
+            valueLabel.setText(String.format("Value[0..%.1f]",selectedProduct.getAmount()));
+        }else {
+            valueLabel.setText("Value:");
+        }
     }
 
     private void setupGroup() {
@@ -168,9 +172,14 @@ public class UpdateFrame extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     selectedGroup = Database.getInstance().getGroups().get(groupBox.getSelectedIndex());
                     setupProduct(selectedGroup);
+                    updateValue();
                 }
             });
             groupBox.setSelectedIndex(0);
+        }else{
+            selectedProduct = null;
+            selectedGroup = null;
+            updateValue();
         }
 
         c.gridx = 1;

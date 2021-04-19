@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import static labs.lab2.Util.toPattern;
@@ -204,10 +205,10 @@ public class MainFrame extends JFrame implements IOnRefreshList {
 
     public void refreshList() {
         if (searchListPanel != null) searchPanel.remove(searchListPanel);
-        String pattern = toPattern(searchTextField.getText());
         if (searchTextField.getText().isBlank()) {
             setupSearchListPanel(Database.getInstance());
         } else {
+            String pattern = toPattern(searchTextField.getText().toLowerCase(Locale.ROOT));
             setupSearchListPanel(Database.getInstance().databaseMatchPattern(pattern));
         }
         searchPanel.add(searchListPanel);
