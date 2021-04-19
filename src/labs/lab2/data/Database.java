@@ -72,6 +72,16 @@ public class Database {
     }
 
     public void saveToFile(String pathToFileFolder){
+        File folder = new File(pathToFileFolder);
+        if(!folder.exists()){
+            folder.mkdirs();
+        }else{
+            File[] contents = folder.listFiles();
+            if(contents != null){
+                for(File f : contents)f.delete();
+            }
+            if(!folder.exists())folder.mkdirs();
+        }
         File file = new File(pathToFileFolder + "/Groups.txt");
         file.getParentFile().mkdirs();
         try {
