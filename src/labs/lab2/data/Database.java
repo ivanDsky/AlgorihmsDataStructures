@@ -47,9 +47,10 @@ public class Database {
     }
 
     public boolean isNameUnique(String name, DBItem type){
+        if(name == null)return true;
         if(type == DBItem.GROUP){
             for(Group gr : groups){
-                if(name.equals(gr.getName()))return false;
+                if(name.equalsIgnoreCase(gr.getName()))return false;
             }
             return true;
         }

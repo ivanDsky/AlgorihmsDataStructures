@@ -1,6 +1,7 @@
 package labs.lab2.data;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Group {
     private ArrayList<Product> products;
@@ -11,6 +12,8 @@ public class Group {
 
     public Group(String name){
         products = new ArrayList<>();
+        if(name.length() == 1)name = name.toUpperCase(Locale.ROOT);
+        else name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
         this.name = name;
         this.description = null;
     }
@@ -76,7 +79,7 @@ public class Group {
 
     public boolean isProductUnique(String name){
         for(Product pr : products){
-            if(name.equals(pr.getName()))return false;
+            if(name.equalsIgnoreCase(pr.getName()))return false;
         }
         return true;
     }

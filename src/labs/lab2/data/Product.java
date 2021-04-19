@@ -13,6 +13,8 @@ public class Product {
     }
 
     public Product(String name,double priceSingle){
+        if(name.length() == 1)name = name.toUpperCase(Locale.ROOT);
+        else name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
         this.name = name;
         this.priceSingle = priceSingle;
         this.description = null;
@@ -36,7 +38,7 @@ public class Product {
     }
 
     public boolean isMatchPattern(String pattern){
-        return name.matches(pattern);
+        return name.toLowerCase(Locale.ROOT).matches(pattern);
     }
 
     public String getName() {
