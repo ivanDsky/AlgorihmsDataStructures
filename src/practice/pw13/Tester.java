@@ -1,5 +1,7 @@
 package practice.pw13;
 
+import java.util.LinkedList;
+
 public class Tester {
     public static void main(String[] args) {
         CustomLinkedList<Integer> list = new CustomLinkedList<Integer>();
@@ -17,11 +19,12 @@ public class Tester {
         list.pushBack(20);
         System.out.println(list);
         list.clear();
-        System.out.println(list);
+        System.out.println("Is list empty - " + list.isEmpty() + ", " + list);
         list.pushFront(10);
         list.pushFront(-1);
         list.pushBack(20);
-        System.out.println(list);
+        System.out.println("Is list empty - " + list.isEmpty() + ", " + list);
+        System.out.println("Contains -1 - " + list.contains(-1) + ", contains 0 - " + list.contains(0));
 
         System.out.println("--------------------------------");
 
@@ -40,10 +43,11 @@ public class Tester {
         listD.pushBack((double)20);
         System.out.println(listD);
         listD.clear();
-        System.out.println(listD);
+        System.out.println("Is list empty - " + listD.isEmpty() + ", " + listD);
         listD.pushFront((double)10);
         listD.pushFront((double)-1);
         listD.pushBack((double)20);
-        System.out.println(listD);
+        System.out.println("Is list empty - " + listD.isEmpty() + ", " + listD);
+        System.out.println("Contains -1 - " + listD.contains(-1.0) + ", contains 0 - " + listD.contains(0.0));
     }
 }

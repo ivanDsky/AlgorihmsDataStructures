@@ -1,6 +1,9 @@
 package practice.pw13;
 
-public class CustomLinkedList<T> {
+import java.util.LinkedList;
+import java.util.List;
+
+public class CustomLinkedList<T>{
     private Node first,last;
     private int size;
 
@@ -151,6 +154,27 @@ public class CustomLinkedList<T> {
         first = last = null;
         size = 0;
     }
+
+    public boolean isEmpty(){
+        return getSize() == 0;
+    }
+
+    public boolean contains(T data){
+        Node current = first;
+        for(int i = 0;i < size; ++i,current = current.next){
+            if(data.equals(current.data))return true;
+        }
+        return false;
+    }
+
+    public boolean contains(Node node){
+        Node current = first;
+        for(int i = 0;i < size; ++i,current = current.next){
+            if(node.equals(current))return true;
+        }
+        return false;
+    }
+
 
     @Override
     public String toString() {
