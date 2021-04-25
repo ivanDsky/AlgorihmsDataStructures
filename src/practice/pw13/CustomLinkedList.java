@@ -2,6 +2,7 @@ package practice.pw13;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class CustomLinkedList<T>{
     private Node first,last;
@@ -68,7 +69,7 @@ public class CustomLinkedList<T>{
     }
 
     public Node getByIndex(int index){
-        if(index < 0 || index >= size)return null;
+        if(index < 0 || index >= size)throw new IndexOutOfBoundsException();
         Node current = first;
         while(index > 0){
             current = current.next;
@@ -78,7 +79,7 @@ public class CustomLinkedList<T>{
     }
 
     public void removeByIndex(int index){
-        if(index < 0 || index >= size)return;
+        if(index < 0 || index >= size)throw new IndexOutOfBoundsException();
         Node current = getByIndex(index);
         remove(current);
     }
@@ -109,7 +110,8 @@ public class CustomLinkedList<T>{
     }
 
     public void pushAfter(Node prevNode,Node newNode){
-        if(prevNode == null || newNode == null)return;
+        if(prevNode == null)throw new NullPointerException("Empty node to push after");
+        if(newNode == null)throw new NullPointerException("Empty add node");
         size++;
         Node afterNext = prevNode.next;
         prevNode.next = newNode;
@@ -128,7 +130,8 @@ public class CustomLinkedList<T>{
     }
 
     public void pushBefore(Node nextNode,Node newNode){
-        if(newNode == null || nextNode == null)return;
+        if(nextNode == null)throw new NullPointerException("Empty node to push before");
+        if(newNode == null)throw new NullPointerException("Empty add node");
         size++;
         Node beforePrev = nextNode.prev;
         nextNode.prev = newNode;
